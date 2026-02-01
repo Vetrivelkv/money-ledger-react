@@ -8,7 +8,6 @@
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 16px;
   padding: 12px 14px;
-  /* background: rgba(255, 255, 255, 0.04); */
 }
 
 .mlExpensesTitle {
@@ -29,7 +28,6 @@
   border-radius: 16px;
   overflow: auto;
   max-height: 58vh;
-  /* background: rgba(0, 0, 0, 0.18); */
 }
 
 .mlExpensesTable {
@@ -52,7 +50,6 @@
   position: sticky;
   top: 0;
   z-index: 2;
-  /* background: rgba(18, 18, 18, 0.95); */
   backdrop-filter: blur(6px);
 }
 
@@ -80,7 +77,6 @@
   position: sticky;
   left: 0;
   z-index: 3;
-  /* background: rgba(18, 18, 18, 0.95); */
 }
 
 .mlCellDesc {
@@ -108,7 +104,6 @@
   padding: 6px 8px;
   border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.16);
-  /* background: rgba(255, 255, 255, 0.06); */
   color: inherit;
   outline: none;
 }
@@ -119,7 +114,6 @@
 
 .mlTickBtn {
   border: 1px solid rgba(255, 255, 255, 0.18);
-  /* background: rgba(255, 255, 255, 0.08); */
   color: inherit;
   border-radius: 10px;
   padding: 6px 10px;
@@ -136,7 +130,6 @@
   width: 180px;
   border-radius: 12px;
   border: 1px solid rgba(255, 255, 255, 0.16);
-  /* background: rgba(20, 20, 20, 0.98); */
   box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35);
   padding: 6px;
 }
