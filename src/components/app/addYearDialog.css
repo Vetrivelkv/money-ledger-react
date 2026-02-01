@@ -1,0 +1,195 @@
+.mlModalOverlay{
+  position: fixed;
+  inset: 0;
+  background: rgba(2,6,23,0.35);
+  display: grid;
+  place-items: center;
+  z-index: 80;
+  padding: 18px;
+}
+
+.mlModal{
+  width: min(620px, 100%);
+  border-radius: 22px;
+  border: 1px solid rgba(255,255,255,0.20);
+  background: rgba(255,255,255,0.92);
+  box-shadow: 0 40px 110px rgba(15,23,42,0.28);
+  backdrop-filter: blur(14px);
+  overflow: hidden;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+}
+
+.mlModalHeader{
+  padding: 18px 18px 14px;
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  align-items: flex-start;
+  border-bottom: 1px solid rgba(15,23,42,0.08);
+}
+
+.mlModalTitle{
+  margin: 0;
+  font-size: 18px;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.mlModalSubtitle{
+  margin: 6px 0 0;
+  color: rgba(15,23,42,0.70);
+  line-height: 1.35;
+  font-size: 13px;
+}
+
+.mlModalClose{
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  border: 1px solid rgba(15,23,42,0.10);
+  background: rgba(255,255,255,0.80);
+  cursor: pointer;
+}
+
+.mlModalBody{
+  padding: 16px 18px 6px;
+  display: grid;
+  gap: 14px;
+}
+
+.mlField{
+  display: grid;
+  gap: 8px;
+}
+
+.mlLabel{
+  font-size: 13px;
+  font-weight: 700;
+  color: rgba(15,23,42,0.82);
+}
+
+.mlInput{
+  height: 44px;
+  border-radius: 14px;
+  border: 1px solid rgba(15,23,42,0.14);
+  padding: 0 14px;
+  font-size: 14px;
+  outline: none;
+  background: rgba(255,255,255,0.86);
+}
+
+.mlInput:focus{
+  border-color: rgba(37,99,235,0.55);
+  box-shadow: 0 0 0 4px rgba(37,99,235,0.12);
+}
+
+.mlMonthsTop{
+  display: grid;
+  gap: 10px;
+}
+
+.mlLabelRow{
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.mlMonthActions{
+  display: flex;
+  gap: 10px;
+}
+
+.mlGhostBtn{
+  border: 1px solid rgba(15,23,42,0.12);
+  background: rgba(255,255,255,0.70);
+  padding: 8px 10px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 650;
+  color: rgba(15,23,42,0.80);
+}
+
+.mlMonthGrid{
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 10px;
+}
+
+@media (max-width: 560px){
+  .mlMonthGrid{ grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+.mlChip{
+  height: 40px;
+  border-radius: 14px;
+  border: 1px solid rgba(15,23,42,0.12);
+  background: rgba(255,255,255,0.80);
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 700;
+  color: rgba(15,23,42,0.78);
+  transition: transform 120ms ease, background 120ms ease, border-color 120ms ease;
+}
+
+.mlChip:hover{
+  transform: translateY(-1px);
+}
+
+.mlChip.selected{
+  background: rgba(37,99,235,0.10);
+  border-color: rgba(37,99,235,0.30);
+  color: rgba(37,99,235,0.95);
+}
+
+.mlHint{
+  font-size: 12px;
+  color: rgba(15,23,42,0.65);
+}
+
+.mlErrorBox{
+  border: 1px solid rgba(239,68,68,0.28);
+  background: rgba(239,68,68,0.08);
+  color: rgba(127,29,29,0.95);
+  padding: 10px 12px;
+  border-radius: 14px;
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.mlModalFooter{
+  padding: 14px 18px 18px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  border-top: 1px solid rgba(15,23,42,0.08);
+}
+
+.mlBtnSecondary{
+  height: 44px;
+  padding: 0 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(15,23,42,0.12);
+  background: rgba(255,255,255,0.80);
+  cursor: pointer;
+  font-weight: 750;
+}
+
+.mlBtnPrimary{
+  height: 44px;
+  padding: 0 16px;
+  border-radius: 14px;
+  border: 1px solid rgba(37,99,235,0.40);
+  background: linear-gradient(135deg, rgba(37,99,235,0.95), rgba(79,70,229,0.95));
+  color: white;
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.mlBtnPrimary:disabled,
+.mlBtnSecondary:disabled{
+  opacity: 0.7;
+  cursor: not-allowed;
+}

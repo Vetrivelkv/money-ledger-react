@@ -1,15 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import AppBar from "../components/app/AppBar";
 import Breadcrumb from "../components/app/Breadcrumb";
 import BottomNav from "../components/app/BottomNav";
+import FabMenu from "../components/app/FabMenu";
+import AddYearDialog from "../components/app/AddYearDialog";
 import { useAuth } from "../auth/AuthContext";
 import { PATHS } from "../routes/paths";
 import "./appHome.css";
 import YearsGrid from "../components/YearsGrid";
 import MonthsGrid from "../components/MonthsGrid";
 import { useDispatch, useSelector } from "react-redux";
-import { clearSelectedYear, fetchYears, selectYear } from "../store/yearsSlice";
+import { clearSelectedYear, createYear, fetchYears, selectYear } from "../store/yearsSlice";
 import { setView } from "../store/uiSlice";
 
 export default function AppHome() {
@@ -25,6 +27,10 @@ export default function AppHome() {
 
   const view = useSelector((state) => state.ui.view);
   const years = useSelector((state) => state.years.list);
+
+  const creatingYear = useSelector((state) => state.years.creating);
+  const yearsError = useSelector((state) => state.years.error);
+  const [addYearOpen, setAddYearOpen] = useState(false);
 
   // Ensure years are in Redux once (used by deep-linking too)
   useEffect(() => {
@@ -67,6 +73,48 @@ export default function AppHome() {
   const goYears = () => setSearchParams({});
   const pickYear = (y) => setSearchParams({ year: String(y.year) });
 
+  const fabActions = useMemo(
+    () => [
+      {
+        key: "addYear",
+        label: "Add year",
+        icon: "Y",
+        disabled: false,
+        hidden: view !== "YEARS",
+        onClick: () => setAddYearOpen(true),
+      },
+      {
+        key: "addMonth",
+        label: "Add month",
+        icon: "M",
+        disabled: true,
+      },
+      {
+        key: "addExpense",
+        label: "Add expense",
+        icon: "$",
+        disabled: true,
+      },
+      {
+        key: "addBalance",
+        label: "Add balance",
+        icon: "B",
+        disabled: true,
+      },
+    ],
+    [view]
+  );
+
+  const onSaveYear = async ({ year, monthsEnabled }) => {
+    try {
+      // backend accepts { year, months }
+      await dispatch(createYear({ year, months: monthsEnabled })).unwrap();
+      setAddYearOpen(false);
+    } catch (e) {
+      // keep dialog open; error is shown from Redux
+    }
+  };
+
   return (
     <div className="mlAppShell">
       <AppBar onLogout={onLogout} />
@@ -90,6 +138,15 @@ export default function AppHome() {
           {view === "MONTHS" && <MonthsGrid />}
         </div>
       </main>
+
+      <FabMenu actions={fabActions} />
+      <AddYearDialog
+        open={addYearOpen}
+        onClose={() => setAddYearOpen(false)}
+        onSave={onSaveYear}
+        saving={creatingYear}
+        error={yearsError}
+      />
 
       <BottomNav
         activeKey="YEARS"
