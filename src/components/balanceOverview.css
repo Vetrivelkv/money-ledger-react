@@ -1,0 +1,108 @@
+.mlBalanceWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.mlBalanceTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.mlBalanceTitle {
+  margin: 0;
+  font-size: 20px;
+}
+
+.mlBalanceHint {
+  margin: 6px 0 0;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 13px;
+}
+
+.mlBalanceTotal {
+  min-width: 180px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  text-align: right;
+}
+
+.mlBalanceTotalLabel {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.mlBalanceTotalValue {
+  margin-top: 6px;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.mlBalanceSection {
+  padding: 12px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+}
+
+.mlBalanceSectionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.mlBalanceSectionTitle {
+  margin: 0;
+  font-size: 16px;
+}
+
+.mlTxnTableWrap {
+  overflow: auto;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+}
+
+.mlTxnTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.mlTxnTable th,
+.mlTxnTable td {
+  padding: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  text-align: left;
+  white-space: nowrap;
+}
+
+.mlTxnTable th {
+  position: sticky;
+  top: 0;
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(8px);
+  z-index: 1;
+}
+
+.mlTxnTable tr.isDebit td:nth-child(3) {
+  opacity: 0.95;
+}
+
+.mlTxnTable tr.isCredit td:nth-child(3) {
+  opacity: 0.95;
+}
+
+.mlTxnModal {
+  width: min(980px, 92vw);
+}
+
+.mlHint {
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 13px;
+}

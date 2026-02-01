@@ -5,7 +5,7 @@ export default function BottomNav({ activeKey, onSelect }) {
   const items = [
     { key: "YEARS", label: "Years", icon: "📁" },
     { key: "EXPENSES", label: "Expenses", icon: "🧾", disabled: true },
-    { key: "BALANCE", label: "Balance", icon: "💰", disabled: true },
+    { key: "BALANCE", label: "Balance", icon: "💰" },
   ];
 
   return (

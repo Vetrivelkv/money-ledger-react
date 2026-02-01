@@ -23,6 +23,13 @@ export default function Breadcrumb({ view, onGoYears }) {
           <span className="mlCrumb isActive">Months</span>
         </>
       ) : null}
+
+      {view === "BALANCE" ? (
+        <>
+          <span className="mlCrumbSep">›</span>
+          <span className="mlCrumb isActive">Balance</span>
+        </>
+      ) : null}
     </div>
   );
 }

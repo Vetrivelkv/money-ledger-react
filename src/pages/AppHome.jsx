@@ -10,6 +10,7 @@ import { PATHS } from "../routes/paths";
 import "./appHome.css";
 import YearsGrid from "../components/YearsGrid";
 import MonthsGrid from "../components/MonthsGrid";
+import BalanceOverview from "../components/BalanceOverview";
 import { useDispatch, useSelector } from "react-redux";
 import { clearSelectedYear, createYear, fetchYears, selectYear } from "../store/yearsSlice";
 import { setView } from "../store/uiSlice";
@@ -39,6 +40,13 @@ export default function AppHome() {
 
   // URL-driven view state (so browser Back works)
   useEffect(() => {
+    const tab = searchParams.get("tab");
+    if (tab === "balance") {
+      dispatch(clearSelectedYear());
+      dispatch(setView("BALANCE"));
+      return;
+    }
+
     const y = searchParams.get("year");
 
     if (!y) {
@@ -72,6 +80,7 @@ export default function AppHome() {
 
   const goYears = () => setSearchParams({});
   const pickYear = (y) => setSearchParams({ year: String(y.year) });
+  const goBalance = () => setSearchParams({ tab: "balance" });
 
   const fabActions = useMemo(
     () => [
@@ -130,12 +139,15 @@ export default function AppHome() {
               Welcome{user?.userName ? `, ${user.userName}` : ""}!
             </h2>
             <p className="mlAppSubtext">
-              Pick a year to view enabled months. We’ll add Expenses and Balance next.
+              {view === "BALANCE"
+                ? "Your overall balance is the sum of all monthly balances. Transactions are sorted by the most recent date."
+                : "Pick a year to view enabled months. We’ll add Expenses and Balance next."}
             </p>
           </div>
 
           {view === "YEARS" && <YearsGrid onPickYear={pickYear} />}
           {view === "MONTHS" && <MonthsGrid />}
+          {view === "BALANCE" && <BalanceOverview />}
         </div>
       </main>
 
@@ -149,9 +161,10 @@ export default function AppHome() {
       />
 
       <BottomNav
-        activeKey="YEARS"
+        activeKey={view === "BALANCE" ? "BALANCE" : "YEARS"}
         onSelect={(key) => {
           if (key === "YEARS") goYears();
+          if (key === "BALANCE") goBalance();
         }}
       />
     </div>
