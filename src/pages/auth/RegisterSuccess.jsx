@@ -7,11 +7,11 @@ import "./authPages.css";
 export default function RegisterSuccess() {
   const navigate = useNavigate();
 
-  // Auto-redirect after 6 seconds
+  // Auto-redirect after 3 seconds
   useEffect(() => {
     const timer = setTimeout(() => {
       navigate(PATHS.LOGIN);
-    }, 6000);
+    }, 3000);
 
     return () => clearTimeout(timer);
   }, [navigate]);

@@ -1,0 +1,84 @@
+.mlAppBar {
+  height: 56px;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding: 0 16px;
+  background: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.mlAppBar__left {
+  display: flex;
+  align-items: center;
+}
+
+.mlAppBar__center {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+}
+
+.mlAppBar__logo {
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: #3f51b5;
+  color: #fff;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: 0.5px;
+}
+
+.mlAppBar__title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.mlAppBar__right {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  position: relative;
+}
+
+.mlAvatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid #e5e7eb;
+  background: #f3f4f6;
+  color: #111827;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.mlMenu {
+  position: absolute;
+  top: 44px;
+  right: 0;
+  min-width: 140px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+.mlMenu__item {
+  width: 100%;
+  text-align: left;
+  padding: 10px 12px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.mlMenu__item:hover {
+  background: #f3f4f6;
+}
