@@ -1,108 +1,179 @@
 import React, { useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import TextField from "../../components/ui/TextField";
 import Button from "../../components/ui/Button";
 import { PATHS } from "../../routes/paths";
+import { api } from "../../services/api";
 import "./authPages.css";
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+// Mirrors backend rules (recommended)
+function validateRegister({ userName, email, password, confirmPassword }) {
+  const errors = {};
+
+  const name = (userName || "").trim();
+  const mail = (email || "").trim();
+
+  if (!name) errors.userName = "Username is required.";
+  else if (name.length < 2)
+    errors.userName = "Username must be at least 2 characters.";
+  else if (name.length > 50)
+    errors.userName = "Username must be 50 characters or less.";
+
+  if (!mail) errors.email = "Email is required.";
+  else if (!emailRegex.test(mail))
+    errors.email = "Enter a valid email address.";
+  else if (mail.length > 255)
+    errors.email = "Email must be 255 characters or less.";
+
+  if (!password) errors.password = "Password is required.";
+  else if (password.length < 6)
+    errors.password = "Password must be at least 6 characters.";
+  else if (password.length > 72)
+    errors.password = "Password must be 72 characters or less.";
+
+  if (!confirmPassword)
+    errors.confirmPassword = "Confirm password is required.";
+  else if (password !== confirmPassword)
+    errors.confirmPassword = "Passwords do not match.";
+
+  return errors;
+}
+
 export default function Register() {
   const navigate = useNavigate();
-  const [form, setForm] = useState({ email: "", password: "", confirmPassword: "" });
+
+  const [form, setForm] = useState({
+    userName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+
   const [touched, setTouched] = useState({});
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [serverError, setServerError] = useState("");
 
-  const errors = useMemo(() => {
-    const next = {};
+  const errors = useMemo(() => validateRegister(form), [form]);
+  const canSubmit = Object.keys(errors).length === 0 && !submitting;
 
-    if (!form.email) next.email = "Email is required";
-    else if (!emailRegex.test(form.email)) next.email = "Enter a valid email";
-
-    if (!form.password) next.password = "Password is required";
-    else if (form.password.length < 6) next.password = "Use at least 6 characters";
-
-    if (!form.confirmPassword) next.confirmPassword = "Confirm password is required";
-    else if (form.password && form.confirmPassword !== form.password)
-      next.confirmPassword = "Passwords do not match";
-
-    return next;
-  }, [form]);
-
-  const hasErrors = Object.keys(errors).length > 0;
-
-  const onChange = (e) => {
-    const { name, value } = e.target;
-    setForm((p) => ({ ...p, [name]: value }));
+  const onChange = (key) => (e) => {
+    setServerError("");
+    setForm((prev) => ({ ...prev, [key]: e.target.value }));
   };
 
-  const onBlur = (e) => {
-    const { name } = e.target;
-    setTouched((p) => ({ ...p, [name]: true }));
-  };
+  const onBlur = (key) => () => setTouched((p) => ({ ...p, [key]: true }));
 
-  const onSubmit = async (e) => {
+  const submit = async (e) => {
     e.preventDefault();
-    setTouched({ email: true, password: true, confirmPassword: true });
-    if (hasErrors) return;
+    setTouched({
+      userName: true,
+      email: true,
+      password: true,
+      confirmPassword: true,
+    });
+
+    const currentErrors = validateRegister(form);
+    if (Object.keys(currentErrors).length > 0) return;
 
     try {
-      setIsSubmitting(true);
+      setSubmitting(true);
+      setServerError("");
 
-      // TODO: replace with API call
-      // await api.register({ email: form.email, password: form.password })
-      console.log("REGISTER payload", { email: form.email, password: form.password });
+      // backend expects userName/email/password (confirm is client-side only)
+      await api.post("/users", {
+        userName: form.userName.trim(),
+        email: form.email.trim(),
+        password: form.password,
+      });
 
+      // After successful registration: go to login (or auto-login later)
       navigate(PATHS.LOGIN);
+    } catch (err) {
+      setServerError(err?.message || "Registration failed. Please try again.");
     } finally {
-      setIsSubmitting(false);
+      setSubmitting(false);
     }
   };
 
+  const fieldError = (key) => (touched[key] ? errors[key] : "");
+
   return (
     <div>
-      <h1 className="authTitle">Sign Up</h1>
-      <p className="authSubtitle">Create your Money Ledger account to track monthly expenses.</p>
+      <h1 className="authTitle">Create your account</h1>
+      <p className="authSubtitle">Add your details to get started</p>
 
-      <form onSubmit={onSubmit}>
-        <TextField
-          label="Email"
-          name="email"
-          type="email"
-          value={form.email}
-          onChange={onChange}
-          onBlur={onBlur}
-          placeholder="you@example.com"
-          autoComplete="email"
-          error={touched.email ? errors.email : ""}
-        />
+      <form className="authForm" onSubmit={submit}>
+        <div className="authField">
+          <label htmlFor="userName">Username</label>
+          <input
+            id="userName"
+            type="text"
+            placeholder="Your name"
+            value={form.userName}
+            onChange={onChange("userName")}
+            onBlur={onBlur("userName")}
+            autoComplete="name"
+          />
+          {fieldError("userName") ? (
+            <div className="authError">{fieldError("userName")}</div>
+          ) : null}
+        </div>
 
-        <TextField
-          label="Password"
-          name="password"
-          type="password"
-          value={form.password}
-          onChange={onChange}
-          onBlur={onBlur}
-          placeholder="Create a password"
-          autoComplete="new-password"
-          error={touched.password ? errors.password : ""}
-        />
+        <div className="authField">
+          <label htmlFor="email">Email</label>
+          <input
+            id="email"
+            type="email"
+            placeholder="you@example.com"
+            value={form.email}
+            onChange={onChange("email")}
+            onBlur={onBlur("email")}
+            autoComplete="email"
+          />
+          {fieldError("email") ? (
+            <div className="authError">{fieldError("email")}</div>
+          ) : null}
+        </div>
 
-        <TextField
-          label="Confirm Password"
-          name="confirmPassword"
-          type="password"
-          value={form.confirmPassword}
-          onChange={onChange}
-          onBlur={onBlur}
-          placeholder="Re-enter password"
-          autoComplete="new-password"
-          error={touched.confirmPassword ? errors.confirmPassword : ""}
-        />
+        <div className="authField">
+          <label htmlFor="password">Password</label>
+          <input
+            id="password"
+            type="password"
+            placeholder="Enter password"
+            value={form.password}
+            onChange={onChange("password")}
+            onBlur={onBlur("password")}
+            autoComplete="new-password"
+          />
+          {fieldError("password") ? (
+            <div className="authError">{fieldError("password")}</div>
+          ) : null}
+        </div>
 
-        <Button type="submit" disabled={isSubmitting || hasErrors}>
-          {isSubmitting ? "Creating..." : "Sign up"}
+        <div className="authField">
+          <label htmlFor="confirmPassword">Confirm Password</label>
+          <input
+            id="confirmPassword"
+            type="password"
+            placeholder="Re-enter password"
+            value={form.confirmPassword}
+            onChange={onChange("confirmPassword")}
+            onBlur={onBlur("confirmPassword")}
+            autoComplete="new-password"
+          />
+          {fieldError("confirmPassword") ? (
+            <div className="authError">{fieldError("confirmPassword")}</div>
+          ) : null}
+        </div>
+
+        {serverError ? (
+          <div className="authServerError">{serverError}</div>
+        ) : null}
+
+        <Button type="submit" disabled={!canSubmit}>
+          {submitting ? "Creating..." : "Create account"}
         </Button>
       </form>
 
