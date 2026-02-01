@@ -1,0 +1,71 @@
+/* Shell takes full viewport */
+.authShell {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f5f7fb;
+  padding: 16px;
+}
+
+/* No left/right split anymore */
+.authLeft {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+/* Card */
+.authCard {
+  width: 100%;
+  max-width: 420px;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 32px 28px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Brand header */
+.authBrand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.authLogo {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  background: #3f51b5;
+  color: #fff;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.authBrandName {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.authBrandTag {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+/* Body where Register/Login form renders */
+.authBody {
+  flex: 1;
+}
+
+/* Footer */
+.authFoot {
+  margin-top: 24px;
+  font-size: 12px;
+  color: #9ca3af;
+  text-align: center;
+}

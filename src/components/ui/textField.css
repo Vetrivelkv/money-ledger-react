@@ -1,0 +1,48 @@
+.tfWrap {
+  display: grid;
+  gap: 6px;
+}
+
+.tfLabel {
+  font-size: 13px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.tfInput {
+  height: 42px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  padding: 0 12px;
+  outline: none;
+  font-size: 14px;
+  color: #0f172a;
+  background: #ffffff;
+  transition: border-color 120ms ease, box-shadow 120ms ease;
+}
+
+.tfInput::placeholder {
+  color: #94a3b8;
+}
+
+.tfInput:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+}
+
+.tfInputError {
+  border-color: #ef4444;
+}
+
+.tfInputError:focus {
+  box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.12);
+}
+
+.tfHelper {
+  font-size: 12px;
+  color: #64748b;
+}
+
+.tfHelperError {
+  color: #ef4444;
+}
