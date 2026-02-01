@@ -1,9 +1,10 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchYears, selectYear } from "../store/yearsSlice";
-import { setView } from "../store/uiSlice";
+import { fetchYears } from "../store/yearsSlice";
+import FolderCard from "./FolderCard";
+import "./folders.css";
 
-export default function YearsGrid() {
+export default function YearsGrid({ onPickYear }) {
   const dispatch = useDispatch();
   const years = useSelector((state) => state?.years?.list ?? []);
 
@@ -12,19 +13,14 @@ export default function YearsGrid() {
   }, []);
 
   return (
-    <div className="grid">
+    <div className="mlGrid">
       {years.map((y) => (
-        <button
+        <FolderCard
           key={y.year}
-          className="folder"
-          onClick={() => {
-            dispatch(selectYear(y));
-            dispatch(setView("MONTHS"));
-          }}
-        >
-          📁
-          <div>{y.year}</div>
-        </button>
+          title={String(y.year)}
+          subtitle="Year"
+          onClick={() => onPickYear(y)}
+        />
       ))}
     </div>
   );

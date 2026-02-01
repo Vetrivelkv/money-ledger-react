@@ -1,4 +1,6 @@
 import { useSelector } from "react-redux";
+import FolderCard from "./FolderCard";
+import "./folders.css";
 
 const MONTHS = [
   "Jan",
@@ -21,13 +23,14 @@ export default function MonthsGrid() {
   if (!year) return null;
 
   return (
-    <div className="grid">
+    <div className="mlGrid">
       {year.monthsEnabled.map((m) => (
-        <div key={m} className="folder">
-          📁
-          <div>{MONTHS[m - 1]}</div>
-          <small>{year.year}</small>
-        </div>
+        <FolderCard
+          key={m}
+          title={MONTHS[m - 1]}
+          subtitle={String(year.year)}
+          onClick={() => {}}
+        />
       ))}
     </div>
   );

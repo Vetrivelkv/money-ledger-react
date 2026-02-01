@@ -1,0 +1,40 @@
+.mlBreadcrumb {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.06);
+  border-radius: 14px;
+  backdrop-filter: blur(8px);
+}
+
+.mlCrumb {
+  border: 0;
+  background: transparent;
+  padding: 6px 10px;
+  border-radius: 10px;
+  font-weight: 700;
+  color: rgba(15, 23, 42, 0.72);
+  cursor: pointer;
+}
+
+.mlCrumb.isActive {
+  color: #0f172a;
+}
+
+.mlCrumb:hover {
+  background: rgba(15, 23, 42, 0.06);
+  color: #0f172a;
+}
+
+.mlCrumbSep {
+  color: rgba(15, 23, 42, 0.35);
+  font-weight: 800;
+}
+
+/* When Months crumb is plain text */
+span.mlCrumb {
+  cursor: default;
+}

@@ -1,0 +1,59 @@
+.mlFolder {
+  appearance: none;
+  border: 1px solid rgba(15, 23, 42, 0.10);
+  background: rgba(255, 255, 255, 0.78);
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
+  border-radius: 18px;
+  padding: 18px 16px;
+  width: 100%;
+  min-height: 110px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  cursor: pointer;
+  text-align: left;
+  backdrop-filter: blur(10px);
+  transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease;
+}
+
+.mlFolder:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 24px 70px rgba(15, 23, 42, 0.12);
+  background: rgba(255, 255, 255, 0.92);
+}
+
+.mlFolder:active {
+  transform: translateY(0px);
+}
+
+.mlFolderIcon {
+  width: 64px;
+  height: 48px;
+  color: #0f172a;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  background: rgba(15, 23, 42, 0.05);
+}
+
+.mlFolderText {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.mlFolderTitle {
+  font-size: 18px;
+  font-weight: 900;
+  color: #0f172a;
+  letter-spacing: 0.2px;
+}
+
+.mlFolderSubtitle {
+  font-size: 12px;
+  font-weight: 800;
+  color: rgba(15, 23, 42, 0.65);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
