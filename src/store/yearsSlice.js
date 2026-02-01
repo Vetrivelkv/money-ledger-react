@@ -2,9 +2,10 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { api } from "../services/api"; // use your existing axios wrapper
 
 export const fetchYears = createAsyncThunk("years/fetchYears", async () => {
-  const res = await api.get("/years"); // cookie auth
-  console.log(res, "Res log");
-  return res.data;
+  // NOTE: our fetch-based api wrapper returns parsed JSON directly,
+  // not an axios-like { data } response.
+  const data = await api.get("/years"); // cookie auth
+  return data?.years;
 });
 
 const yearsSlice = createSlice({
