@@ -11,9 +11,10 @@ import "./appHome.css";
 import YearsGrid from "../components/YearsGrid";
 import MonthsGrid from "../components/MonthsGrid";
 import BalanceOverview from "../components/BalanceOverview";
+import ExpensesMonthTable from "../components/ExpensesMonthTable";
 import { useDispatch, useSelector } from "react-redux";
 import { clearSelectedYear, createYear, fetchYears, selectYear } from "../store/yearsSlice";
-import { setView } from "../store/uiSlice";
+import { clearSelectedMonth, setSelectedMonth, setView } from "../store/uiSlice";
 
 export default function AppHome() {
   const navigate = useNavigate();
@@ -28,6 +29,7 @@ export default function AppHome() {
 
   const view = useSelector((state) => state.ui.view);
   const years = useSelector((state) => state.years.list);
+  const selectedYear = useSelector((state) => state.years.selectedYear);
 
   const creatingYear = useSelector((state) => state.years.creating);
   const yearsError = useSelector((state) => state.years.error);
@@ -43,14 +45,17 @@ export default function AppHome() {
     const tab = searchParams.get("tab");
     if (tab === "balance") {
       dispatch(clearSelectedYear());
+      dispatch(clearSelectedMonth());
       dispatch(setView("BALANCE"));
       return;
     }
 
     const y = searchParams.get("year");
+    const m = searchParams.get("month");
 
     if (!y) {
       dispatch(clearSelectedYear());
+      dispatch(clearSelectedMonth());
       dispatch(setView("YEARS"));
       return;
     }
@@ -60,6 +65,7 @@ export default function AppHome() {
     if (!Number.isFinite(yearNum)) {
       setSearchParams({});
       dispatch(clearSelectedYear());
+      dispatch(clearSelectedMonth());
       dispatch(setView("YEARS"));
       return;
     }
@@ -68,11 +74,26 @@ export default function AppHome() {
       const found = years.find((it) => it.year === yearNum);
       if (found) {
         dispatch(selectYear(found));
-        dispatch(setView("MONTHS"));
+        if (m) {
+          const monthNum = Number(m);
+          if (Number.isFinite(monthNum) && monthNum >= 1 && monthNum <= 12) {
+            dispatch(setSelectedMonth(monthNum));
+            dispatch(setView("EXPENSES"));
+          } else {
+            // invalid month in URL
+            setSearchParams({ year: String(found.year) });
+            dispatch(clearSelectedMonth());
+            dispatch(setView("MONTHS"));
+          }
+        } else {
+          dispatch(clearSelectedMonth());
+          dispatch(setView("MONTHS"));
+        }
       } else {
         // invalid year in URL
         setSearchParams({});
         dispatch(clearSelectedYear());
+        dispatch(clearSelectedMonth());
         dispatch(setView("YEARS"));
       }
     }
@@ -80,6 +101,10 @@ export default function AppHome() {
 
   const goYears = () => setSearchParams({});
   const pickYear = (y) => setSearchParams({ year: String(y.year) });
+  const goMonths = () => {
+    if (selectedYear?.year) setSearchParams({ year: String(selectedYear.year) });
+    else setSearchParams({});
+  };
   const goBalance = () => setSearchParams({ tab: "balance" });
 
   const fabActions = useMemo(
@@ -131,7 +156,7 @@ export default function AppHome() {
       <main className="mlAppContent">
         <div className="mlCenterCard">
           <div className="mlCenterTop">
-            <Breadcrumb view={view} onGoYears={goYears} />
+            <Breadcrumb view={view} onGoYears={goYears} onGoMonths={goMonths} />
           </div>
 
           <div className="mlCenterHeader">
@@ -147,6 +172,7 @@ export default function AppHome() {
 
           {view === "YEARS" && <YearsGrid onPickYear={pickYear} />}
           {view === "MONTHS" && <MonthsGrid />}
+          {view === "EXPENSES" && <ExpensesMonthTable />}
           {view === "BALANCE" && <BalanceOverview />}
         </div>
       </main>

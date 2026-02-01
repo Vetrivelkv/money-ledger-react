@@ -1,0 +1,162 @@
+.mlExpensesWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.mlExpensesInfo {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  padding: 12px 14px;
+  /* background: rgba(255, 255, 255, 0.04); */
+}
+
+.mlExpensesTitle {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+
+.mlExpensesSub {
+  margin-top: 4px;
+  font-size: 12px;
+  opacity: 0.85;
+  line-height: 1.35;
+}
+
+.mlExpensesTableShell {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  overflow: auto;
+  max-height: 58vh;
+  /* background: rgba(0, 0, 0, 0.18); */
+}
+
+.mlExpensesTable {
+  width: max-content;
+  min-width: 100%;
+  border-collapse: collapse;
+}
+
+.mlExpensesTable th,
+.mlExpensesTable td {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 8px;
+  vertical-align: middle;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.mlExpensesTable thead th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  /* background: rgba(18, 18, 18, 0.95); */
+  backdrop-filter: blur(6px);
+}
+
+.mlHeadDesc {
+  min-width: 220px;
+}
+
+.mlDayHead {
+  min-width: 76px;
+  text-align: center;
+}
+
+.mlDayNum {
+  font-weight: 700;
+  font-size: 12px;
+}
+
+.mlDayName {
+  font-size: 11px;
+  opacity: 0.7;
+  margin-top: 2px;
+}
+
+.mlStickyCol {
+  position: sticky;
+  left: 0;
+  z-index: 3;
+  /* background: rgba(18, 18, 18, 0.95); */
+}
+
+.mlCellDesc {
+  cursor: text;
+}
+
+.mlCell {
+  cursor: text;
+  text-align: center;
+}
+
+.mlPlaceholder {
+  opacity: 0.45;
+}
+
+.mlEditWrap {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.mlCellInput {
+  width: 100%;
+  min-width: 0;
+  padding: 6px 8px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  /* background: rgba(255, 255, 255, 0.06); */
+  color: inherit;
+  outline: none;
+}
+
+.mlNumInput {
+  text-align: center;
+}
+
+.mlTickBtn {
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  /* background: rgba(255, 255, 255, 0.08); */
+  color: inherit;
+  border-radius: 10px;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+
+.mlTickBtn:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.mlContextMenu {
+  position: fixed;
+  z-index: 9999;
+  width: 180px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  /* background: rgba(20, 20, 20, 0.98); */
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35);
+  padding: 6px;
+}
+
+.mlMenuItem {
+  width: 100%;
+  text-align: left;
+  padding: 10px 10px;
+  border-radius: 10px;
+  border: none;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.mlMenuItem:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.mlMenuItem.danger:hover {
+  background: rgba(255, 80, 80, 0.14);
+}

@@ -6,7 +6,7 @@ import "./breadcrumb.css";
  * - Years view:  Years
  * - Months view: Years > Months
  */
-export default function Breadcrumb({ view, onGoYears }) {
+export default function Breadcrumb({ view, onGoYears, onGoMonths }) {
   return (
     <div className="mlBreadcrumb" role="navigation" aria-label="Breadcrumb">
       <button
@@ -17,10 +17,27 @@ export default function Breadcrumb({ view, onGoYears }) {
         Years
       </button>
 
-      {view === "MONTHS" ? (
+      {view === "MONTHS" || view === "EXPENSES" ? (
         <>
           <span className="mlCrumbSep">›</span>
-          <span className="mlCrumb isActive">Months</span>
+          {view === "MONTHS" ? (
+            <span className="mlCrumb isActive">Months</span>
+          ) : (
+            <button
+              type="button"
+              className="mlCrumb"
+              onClick={onGoMonths}
+            >
+              Months
+            </button>
+          )}
+        </>
+      ) : null}
+
+      {view === "EXPENSES" ? (
+        <>
+          <span className="mlCrumbSep">›</span>
+          <span className="mlCrumb isActive">Expenses</span>
         </>
       ) : null}
 
