@@ -88,7 +88,7 @@ export default function Register() {
       });
 
       // After successful registration: go to login (or auto-login later)
-      navigate(PATHS.LOGIN);
+      navigate(PATHS.REGISTER_SUCCESS);
     } catch (err) {
       setServerError(err?.message || "Registration failed. Please try again.");
     } finally {

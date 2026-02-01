@@ -5,11 +5,15 @@ import Register from "../pages/auth/Register";
 import Login from "../pages/auth/Login";
 import AppHome from "../pages/AppHome";
 import { PATHS } from "./paths";
+import RegisterSuccess from "../pages/auth/RegisterSuccess";
 
 export default function AppRoutes() {
   return (
     <Routes>
-      <Route path={PATHS.ROOT} element={<Navigate to={PATHS.REGISTER} replace />} />
+      <Route
+        path={PATHS.ROOT}
+        element={<Navigate to={PATHS.REGISTER} replace />}
+      />
 
       <Route
         path={PATHS.REGISTER}
@@ -27,6 +31,7 @@ export default function AppRoutes() {
           </AuthLayout>
         }
       />
+      <Route path={PATHS.REGISTER_SUCCESS} element={<RegisterSuccess />} />
 
       <Route path={PATHS.APP} element={<AppHome />} />
 
